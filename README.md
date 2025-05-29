@@ -64,3 +64,110 @@ Requirements:
 - Consider thumb reachability zones for button placement
 - Implement a save system for progress retention
 - Ensure all interactive elements are large enough for mobile touch input
+
+# Easiest Components to Implement First
+
+The Main GUI (Hub Phase) is the most straightforward component to implement first for several reasons:
+1. Simple UI-based functionality with minimal complex logic
+2. Primarily uses built-in Godot UI nodes (Control, Button, Label)
+3. Serves as a foundation for navigating to other phases
+4. No complex game mechanics or state management required initially
+
+## Recommended Implementation Order (Easiest to Most Complex):
+1. Main GUI (Hub) - Navigation and basic UI
+2. Visual Story Phase - Text and simple animations
+3. Customization/Room Phase - Static customization options
+4. Combat Phase - Complex game mechanics and state management
+
+# Modular Structure for GitHub Updates
+
+## Core Components (Rarely Updated)
+Place these in a `core/` directory:
+```
+core/
+├── engine/
+│   ├── save_system.gd
+│   ├── update_manager.gd
+│   └── config_manager.gd
+├── ui/
+│   ├── base_menu.tscn
+│   └── common_elements.tscn
+└── autoload/
+    └── global.gd
+```
+
+## Updatable Components
+Place these in separate directories that can be easily updated:
+
+```
+content/
+├── stories/
+│   ├── chapter_1/
+│   ├── chapter_2/
+│   └── story_data.json
+├── items/
+│   ├── weapons/
+│   ├── cosmetics/
+│   └── items_data.json
+└── combat/
+    ├── moves/
+    ├── enemies/
+    └── combat_data.json
+```
+
+## Update System Implementation
+
+### 1. Version Control File
+Create a `version.json` in the root:
+```json
+{
+  "core_version": "1.0.0",
+  "content_version": "1.0.0",
+  "required_core": "1.0.0",
+  "update_url": "https://api.github.com/repos/mysterious-dark/LSG/releases/latest"
+}
+```
+
+### 2. Update Manager Script
+```gdscript
+extends Node
+
+const VERSION_FILE = "res://version.json"
+const CONTENT_PATH = "res://content/"
+
+func check_for_updates():
+    # Connect to GitHub API
+    # Compare versions
+    # Download new content if available
+    pass
+
+func update_content():
+    # Download new content files
+    # Update version.json
+    # Reload content
+    pass
+```
+
+## Implementation Steps
+
+1. Core Setup:
+- [ ] Create basic folder structure
+- [ ] Implement version control system
+- [ ] Set up update manager
+
+2. Main GUI (First Component):
+- [ ] Create basic navigation buttons
+- [ ] Implement scene transitions
+- [ ] Add update check button
+
+3. Content Structure:
+- [ ] Set up content folders
+- [ ] Create initial story data
+- [ ] Implement basic item system
+
+## Notes
+- Keep core game logic separate from content
+- Use JSON or similar format for easily updatable data
+- Implement version checking on startup
+- Add manual update button in settings
+- Consider implementing delta updates for bandwidth efficiency

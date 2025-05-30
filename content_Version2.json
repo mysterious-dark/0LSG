@@ -1,0 +1,12 @@
+{
+    "items": [
+        {
+            "title": "Welcome!",
+            "description": "This is a test message from GitHub Pages."
+        },
+        {
+            "title": "How to Use",
+            "description": "This content will automatically update every 5 minutes."
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+It was then I realized something, humans aren't slow. Rather, we are following a slower rhythm

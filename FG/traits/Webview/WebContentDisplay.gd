@@ -7,7 +7,7 @@ var http: HTTPRequest
 const REFRESH_TIME = 300
 
 # Your GitHub Pages URL - CHANGE THIS TO YOUR URL
-const GITHUB_PAGE_URL = "github.com/mysterious-dark/0LSG/tree/main/content_Version2.json"
+const GITHUB_PAGE_URL = "https://raw.githubusercontent.com/mysterious-dark/0LSG/refs/heads/main/content_Version2.json"
 
 # Reference to refresh timer
 var refresh_timer: Timer
@@ -59,6 +59,7 @@ func _on_request_completed(result, response_code, headers, body):
 	
 	if json == null:
 		print("Failed to parse JSON")
+		print(json_string)
 		return
 
 	# Update the display with the new content
@@ -84,6 +85,25 @@ func update_display(data):
 	if data.has("items"):
 		for item in data["items"]:
 			add_item_to_display(content, item)
+
+func update_display_string(data):
+	# Clear existing children of this Control node
+	for child in get_children():
+		if not (child is HTTPRequest or child is Timer):  # Don't remove our HTTP or Timer nodes
+			child.queue_free()
+	
+	# Create a scroll container for the content
+	var scroll = ScrollContainer.new()
+	var content = VBoxContainer.new()
+	scroll.add_child(content)
+	add_child(scroll)
+	
+	# Make scroll container fill the entire Control node
+	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
+	
+	# Add items from the JSON data
+
+	add_item_to_display(content, data)
 
 # Adds a single item to the display
 func add_item_to_display(container, item):

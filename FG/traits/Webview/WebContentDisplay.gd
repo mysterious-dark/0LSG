@@ -6,10 +6,6 @@ const GITHUB_PAGE_URL = "https://raw.githubusercontent.com/mysterious-dark/0LSG/
 var refresh_timer: Timer
 
 func _ready():
-	# Make this control node fill the screen
-	anchor_right = 1
-	anchor_bottom = 1
-	
 	setup_http_request()
 	setup_timer()
 	load_content()

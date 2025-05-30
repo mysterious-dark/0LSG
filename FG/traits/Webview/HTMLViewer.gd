@@ -15,7 +15,7 @@ func _ready():
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_http_request_completed)
-	load_html("https://raw.githubusercontent.com/mysterious-dark/0LSG/refs/heads/main/Websites/Loading.html")
+	load_html("https://mysterious-dark.github.io/0LSG/Websites/Loading.html")
 	# Create refresh timer
 	refresh_timer = Timer.new()
 	add_child(refresh_timer)

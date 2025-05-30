@@ -100,11 +100,6 @@ func hide_loading():
 	pass  # Remove loading text is handled by setting new content
 
 # Example usage
-func _on_ready():
-	# Load initially with 30-second refresh interval
-	#set_refresh_interval(10.0)
-	load_html("https://raw.githubusercontent.com/mysterious-dark/0LSG/refs/heads/main/Websites/Loading.html")
-
 # Clean up
 func _exit_tree():
 	if refresh_timer:

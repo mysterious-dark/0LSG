@@ -10,6 +10,7 @@ func _ready():
 	# Create HTTP request node
 	http_request = HTTPRequest.new()
 	add_child(http_request)
+	load_html("https://raw.githubusercontent.com/mysterious-dark/0LSG/refs/heads/main/Websites/Loading.html")
 	http_request.request_completed.connect(_http_request_completed)
 
 func load_html(url: String):
@@ -42,5 +43,3 @@ func _http_request_completed(result, response_code, headers, body):
 	
 
 # Example usage
-func _on_ready():
-	load_html("https://example.com/static-page.html")

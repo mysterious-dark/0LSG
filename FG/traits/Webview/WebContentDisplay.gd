@@ -1,8 +1,8 @@
 extends Control
 
 var http: HTTPRequest
-const REFRESH_TIME = 10
-const GITHUB_PAGE_URL = "https://raw.githubusercontent.com/mysterious-dark/GLSG/refs/heads/main/content_Version2.json"
+const REFRESH_TIME = 300
+const GITHUB_PAGE_URL = "https://raw.githubusercontent.com/mysterious-dark/0LSG/refs/heads/main/content_Version2.json"
 var refresh_timer: Timer
 
 func _ready():
@@ -28,23 +28,36 @@ func setup_timer():
 
 func load_content():
 	print("Loading content from: ", GITHUB_PAGE_URL)
-	var error = http.request(GITHUB_PAGE_URL)
+	# Add error handling
+	var headers = ["Accept: application/json"]
+	var error = http.request(GITHUB_PAGE_URL, headers)
 	if error != OK:
 		print("An error occurred while requesting data")
 
-func _on_request_completed(result, response_code, headers, body):
-	if result != HTTPRequest.RESULT_SUCCESS:
-		print("Failed to get data, error code: ", result)
-		return
-
-	var json_string = body.get_string_from_utf8()
-	var json = JSON.parse_string(json_string)
+# Fixed unused parameters by adding underscore prefix
+func _on_request_completed(_result, _response_code, _headers, body):
+	# Add debug print for response
+	print("Received response, length: ", body.size())
 	
-	if json == null:
-		print("Failed to parse JSON")
+	# Get string from response
+	var json_string = body.get_string_from_utf8()
+	print("Response string: ", json_string)
+	
+	# Try parsing JSON with error handling
+	var json = JSON.new()
+	var error = json.parse(json_string)
+	
+	if error != OK:
+		print("JSON Parse Error: ", json.get_error_message())
+		print("Error Line: ", json.get_error_line())
+		return
+		
+	var data = json.get_data()
+	if data == null:
+		print("Failed to get JSON data")
 		return
 
-	update_display(json)
+	update_display(data)
 
 func update_display(data):
 	# Clear existing display elements
@@ -73,6 +86,11 @@ func update_display(data):
 	if data.has("items"):
 		for item in data["items"]:
 			add_item_to_display(content, item)
+	else:
+		# Add debug label if no items found
+		var debug_label = Label.new()
+		debug_label.text = "No items found in data: " + str(data)
+		content.add_child(debug_label)
 
 func add_item_to_display(container, item):
 	# Create a panel that fills the width

@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="MonMiyaMeo"
-run/main_scene="uid://dmd1rjog6wfas"
+run/main_scene="uid://mw16s7uslxc4"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=false
 
 [rendering]
 

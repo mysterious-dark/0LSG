@@ -70,23 +70,23 @@ func create_news_item(title: String, description: String) -> PanelContainer:
 	vbox.add_child(desc_label)
 	
 	# Add some styling
-	margin.add_theme_constant_override("margin_left", 32)
-	margin.add_theme_constant_override("margin_right", 32)
-	margin.add_theme_constant_override("margin_top", 12)
-	margin.add_theme_constant_override("margin_bottom", 12)
+	#margin.add_theme_constant_override("margin_left", 32)
+	#margin.add_theme_constant_override("margin_right", 32)
+	#margin.add_theme_constant_override("margin_top", 12)
+	#margin.add_theme_constant_override("margin_bottom", 12)
 	
 	vbox.add_theme_constant_override("separation", 8)
 	
 	# Add some styling to the panel
 	var style = StyleBoxFlat.new()
 	style.bg_color = Color(0.2, 0.2, 0.2, 0.8)
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
+	#style.corner_radius_top_left = 8
+	#style.corner_radius_top_right = 8
+	#style.corner_radius_bottom_left = 8
+	#style.corner_radius_bottom_right = 8
 	panel.add_theme_stylebox_override("panel", style)
 	
 	# Add margin between news items
-	margin.add_theme_constant_override("margin_bottom", 8)
+	#margin.add_theme_constant_override("margin_bottom", 8)
 	
 	return panel

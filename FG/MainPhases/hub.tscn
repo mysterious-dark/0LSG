@@ -3,8 +3,22 @@
 [ext_resource type="PackedScene" uid="uid://dmd1rjog6wfas" path="res://News/news_screen.tscn" id="1_8kcd2"]
 
 [node name="Hub" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [4.0]
 
 [node name="Node" type="Node" parent="."]
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Node"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 722.0
+offset_top = 47.0
+offset_right = 715.0
+offset_bottom = -176.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Testing game"
+fit_content = true
 
 [node name="Control" type="Control" parent="Node"]
 layout_mode = 3
@@ -20,3 +34,12 @@ grow_vertical = 2
 layout_mode = 1
 offset_right = 200.0
 offset_bottom = 300.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Testing game"
+fit_content = true

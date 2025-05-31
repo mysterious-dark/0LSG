@@ -15,7 +15,7 @@ var scroll_start = Vector2()
 
 func _ready():
 	# Configure ScrollContainer for touch scrolling
-	scroll_container.scroll_horizontal = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll_container.scroll_horizontal = ScrollContainer.SCROLL_MODE_AUTO
 	scroll_container.scroll_vertical = ScrollContainer.SCROLL_MODE_AUTO
 	
 	# Configure HTTPRequest

@@ -9,6 +9,10 @@ extends Control
 # JSON URL
 const NEWS_URL = "https://mysterious-dark.github.io/0LSG/content_Version2.json"
 
+var dragging = false
+var drag_start = Vector2()
+var scroll_start = Vector2()
+
 func _ready():
 	# Configure ScrollContainer for touch scrolling
 	scroll_container.scroll_horizontal = ScrollContainer.SCROLL_MODE_DISABLED
@@ -23,7 +27,27 @@ func _ready():
 	# Optional: Set up auto-refresh timer
 	timer.connect("timeout", fetch_news)
 	timer.start(10.0)  # Update every 10 seconds
+
+# Handle touch input
+func _input(event):
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			# Touch began
+			dragging = true
+			drag_start = event.position
+			scroll_start = Vector2(
+				scroll_container.scroll_horizontal,
+				scroll_container.scroll_vertical
+			)
+		else:
+			# Touch ended
+			dragging = false
 	
+	elif event is InputEventScreenDrag and dragging:
+		# Calculate drag distance and update scroll
+		var delta = event.position - drag_start
+		scroll_container.scroll_vertical = scroll_start.y - delta.y
+
 func fetch_news():
 	http_request.request(NEWS_URL)
 
@@ -46,7 +70,6 @@ func _on_request_completed(_result, _response_code, _headers, body):
 func create_news_item(title: String, description: String) -> PanelContainer:
 	# Create a container for the news item
 	var panel = PanelContainer.new()
-	var margin = MarginContainer.new()
 	var vbox = VBoxContainer.new()
 	
 	# Create labels for title and description
@@ -64,19 +87,13 @@ func create_news_item(title: String, description: String) -> PanelContainer:
 	desc_label.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
 	
 	# Set up the hierarchy
-	panel.add_child(margin)
-	margin.add_child(vbox)
+	panel.add_child(vbox)
 	vbox.add_child(title_label)
 	vbox.add_child(desc_label)
-	
-	vbox.add_theme_constant_override("separation", 8)
 	
 	# Add some styling to the panel
 	var style = StyleBoxFlat.new()
 	style.bg_color = Color(0.2, 0.2, 0.2, 0.8)
 	panel.add_theme_stylebox_override("panel", style)
-	
-	# Add margin between news items
-	#margin.add_theme_constant_override("margin_bottom", 8)
 	
 	return panel

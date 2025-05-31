@@ -18,4 +18,5 @@ grow_vertical = 2
 
 [node name="NewsScreen" parent="Node/Control" instance=ExtResource("1_8kcd2")]
 layout_mode = 1
+offset_right = 200.0
 offset_bottom = 300.0

@@ -1,12 +1,36 @@
 {
     "items": [
         {
-            "title": "Welcome!",
-            "description": "This is a test message from GitHub Pages."
+            "title": "How to Use",
+            "description": "This content will automatically update every 10 seconds."
         },
         {
             "title": "How to Use",
-            "description": "This content will automatically update every 5 minutes."
+            "description": "This content will automatically update every 10 seconds."
+        },
+        {
+            "title": "How to Use",
+            "description": "This content will automatically update every 10 seconds."
+        },
+        {
+            "title": "How to Use",
+            "description": "This content will automatically update every 10 seconds."
+        },
+        {
+            "title": "How to Use",
+            "description": "This content will automatically update every 10 seconds."
+        },
+        {
+            "title": "How to Use",
+            "description": "This content will automatically update every 10 seconds."
+        },
+        {
+            "title": "How to Use",
+            "description": "This content will automatically update every 10 seconds."
+        },
+        {
+            "title": "Welcome!",
+            "description": "This is a test message from GitHub Pages."
         }
     ]
 }

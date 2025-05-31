@@ -31,20 +31,28 @@ func _ready():
 # Handle touch input
 func _input(event):
 	if event is InputEventScreenTouch:
-		if event.pressed:
-			# Touch began
-			dragging = true
-			drag_start = event.position
-			scroll_start = Vector2(
-				scroll_container.scroll_horizontal,
-				scroll_container.scroll_vertical
-			)
+		var touch_pos = event.position
+		# Check if touch is inside ScrollContainer
+		var scroll_rect = scroll_container.get_global_rect()
+		
+		if scroll_rect.has_point(touch_pos):
+			if event.pressed:
+				# Touch began inside scroll area
+				dragging = true
+				drag_start = touch_pos
+				scroll_start = Vector2(
+					scroll_container.scroll_horizontal,
+					scroll_container.scroll_vertical
+				)
+			else:
+				# Touch ended
+				dragging = false
 		else:
-			# Touch ended
+			# Touch outside scroll area
 			dragging = false
 	
 	elif event is InputEventScreenDrag and dragging:
-		# Calculate drag distance and update scroll
+		# Only process drag if we started dragging from inside the scroll area
 		var delta = event.position - drag_start
 		scroll_container.scroll_vertical = scroll_start.y - delta.y
 

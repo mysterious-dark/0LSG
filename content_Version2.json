@@ -2,7 +2,7 @@
     "items": [
         {
             "title": "First launch of the app",
-            "description": "This was a special day to us, on May 31 2025."
+            "description": "This was a special day to us, on May 31 2025. Mèo đang chào Mon nè 😊"
         },
         {
             "title": "Fixing the junkie news issue on the app but not on the website",
@@ -14,8 +14,9 @@
             "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/hello_monday.png"
         },
         {
-            "title": "How to Use",
-            "description": "This content will automatically update every 10 seconds."
+            "title": "Xin chào các bạn!",
+            "description": "Mèo là một chú mèo rất dễ thương và thông minh. Nó thích chơi đùa và khám phá thế giới xung quanh.",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/cat.png"
         },
         {
             "title": "How to Use",

@@ -35,7 +35,7 @@ size_flags_horizontal = 3
 [node name="GameTitle" type="RichTextLabel" parent="MainContainer/HBoxContainer/LeftSide"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Testing game"
+text = "Bảng tin tức / News"
 fit_content = true
 scroll_active = false
 
@@ -49,6 +49,6 @@ size_flags_horizontal = 3
 
 [node name="GameInfo" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightSide"]
 layout_mode = 2
-text = "Testing game"
+text = "Chào mừng quay trở lại"
 fit_content = true
 scroll_active = false

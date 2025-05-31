@@ -86,6 +86,7 @@ func create_news_item(title: String, description: String) -> PanelContainer:
 	
 	# Configure the title label
 	title_label.text = title
+	title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title_label.add_theme_font_size_override("font_size", 20)
 	title_label.add_theme_color_override("font_color", Color(1, 1, 1))
 	

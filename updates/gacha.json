@@ -1,0 +1,29 @@
+{
+    "items": [
+        {
+            "title": "Legendary Summon: Celestial Fox Luna",
+            "description": "A rare chance to summon Luna, the mystical fox spirit with celestial power! 🔥✨",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/luna_banner.png"
+        },
+        {
+            "title": "New Arrival: Cyber Ninja Riko",
+            "description": "Step into the shadows with Riko, the cybernetic ninja from Neo-Tokyo. Available now for a limited time!",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/riko_banner.png"
+        },
+        {
+            "title": "Special Event: Summer Splash Draw!",
+            "description": "Cool off with this summer-themed banner. Get exclusive swimsuits for your favorite heroes! ☀️🏖️",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/summer_event.png"
+        },
+        {
+            "title": "Rate Up: Dark Mage Evelyn",
+            "description": "Increased chance to summon the powerful dark mage Evelyn. Don’t miss your shot! 🖤",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/evelyn_rateup.png"
+        },
+        {
+            "title": "Beginner Banner: Guaranteed 5★ Hero!",
+            "description": "Start your journey strong with a guaranteed 5-star hero on your first 10-pull!",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/beginner_banner.png"
+        }
+    ]
+}

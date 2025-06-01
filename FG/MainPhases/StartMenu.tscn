@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://mw16s7uslxc4"]
+[gd_scene load_steps=4 format=3 uid="uid://mw16s7uslxc4"]
 
 [ext_resource type="PackedScene" uid="uid://dmd1rjog6wfas" path="res://News/news_screen.tscn" id="1_8kcd2"]
 [ext_resource type="Script" uid="uid://dhudgpeh18vda" path="res://MainPhases/StartMenu.gd" id="1_vjyj3"]
+[ext_resource type="Texture2D" uid="uid://blhq1pxjbio2b" path="res://textures/manedkitsune.jpeg" id="3_bh8am"]
 
 [node name="Hub" type="Control"]
 layout_mode = 3
@@ -43,12 +44,64 @@ scroll_active = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RightSide" type="VBoxContainer" parent="MainContainer/HBoxContainer"]
+[node name="RightContainer" type="VBoxContainer" parent="MainContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 10
 
-[node name="GameInfo" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightSide"]
+[node name="TopSection" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="GameInfo" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/TopSection"]
+layout_mode = 2
+text = "Open x11 FREE Daily for 30 Yakisoba Breads"
+fit_content = true
+scroll_active = false
+
+[node name="GameInfo2" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/TopSection"]
+layout_mode = 2
+text = "New Thesa join the scene! Evils beware ! owo)"
+fit_content = true
+scroll_active = false
+
+[node name="NewsScreen" parent="MainContainer/HBoxContainer/RightContainer/TopSection" instance=ExtResource("1_8kcd2")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MiddleSection" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="GameInfo" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/MiddleSection"]
 layout_mode = 2
 text = "Chào mừng quay trở lại"
 fit_content = true
 scroll_active = false
+
+[node name="BottomSection" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.2
+
+[node name="ButtonControl" type="Control" parent="MainContainer/HBoxContainer/RightContainer/BottomSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button1" type="Button" parent="MainContainer/HBoxContainer/RightContainer/BottomSection/ButtonControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -46.0
+offset_right = 30.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("3_bh8am")
+icon_alignment = 1
+expand_icon = true

@@ -16,6 +16,11 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="uid://da2l7rfy3qw77"
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=720
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true

@@ -1,0 +1,169 @@
+[gd_scene load_steps=6 format=3 uid="uid://xjlhfa4lxmb0"]
+
+[ext_resource type="Texture2D" uid="uid://c3vkk383vl2cg" path="res://icon.svg" id="1_24hfv"]
+[ext_resource type="Texture2D" uid="uid://cghser7ty2pg0" path="res://textures/download.png" id="2_0mw6d"]
+[ext_resource type="Script" uid="uid://dops7x8g7ln1x" path="res://1_MainPhases/Hub/side_hub_buttons.gd" id="2_1smv4"]
+[ext_resource type="Script" uid="uid://c272xisn04skv" path="res://1_MainPhases/Hub/hub.gd" id="2_f545q"]
+[ext_resource type="Script" uid="uid://c4aojkfd7lcsc" path="res://1_MainPhases/Hub/button_feedback.gd" id="4_443ti"]
+
+[node name="Hub" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_f545q")
+
+[node name="Background" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="TextureRect" parent="Background"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CharacterSpace" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UserMainControl" type="Control" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 547.0
+offset_top = -97.0
+offset_right = 547.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 3.92699
+
+[node name="SideButtonsVBoxContainer" type="VBoxContainer" parent="UserMainControl"]
+layout_mode = 2
+offset_right = 260.0
+offset_bottom = 260.0
+script = ExtResource("2_1smv4")
+
+[node name="EventsHBoxContainer" type="HBoxContainer" parent="UserMainControl/SideButtonsVBoxContainer"]
+layout_mode = 2
+
+[node name="Events" type="TextureButton" parent="UserMainControl/SideButtonsVBoxContainer/EventsHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_24hfv")
+script = ExtResource("4_443ti")
+
+[node name="Attack" type="TextureButton" parent="UserMainControl/SideButtonsVBoxContainer/EventsHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_24hfv")
+script = ExtResource("4_443ti")
+
+[node name="ItemsHBoxContainer" type="HBoxContainer" parent="UserMainControl/SideButtonsVBoxContainer"]
+layout_mode = 2
+
+[node name="Shop" type="TextureButton" parent="UserMainControl/SideButtonsVBoxContainer/ItemsHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_24hfv")
+script = ExtResource("4_443ti")
+
+[node name="Inventory" type="TextureButton" parent="UserMainControl/SideButtonsVBoxContainer/ItemsHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_24hfv")
+script = ExtResource("4_443ti")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "username"
+fit_content = true
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(290, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "username
+"
+fit_content = true
+vertical_alignment = 1
+
+[node name="LevelsHBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopBarContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="QuotaHBoxContainer" type="HBoxContainer" parent="HBoxContainer/TopBarContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TopBarContainer/QuotaHBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_0mw6d")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/TopBarContainer/QuotaHBoxContainer"]
+layout_mode = 2
+text = "Quota"
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/TopBarContainer/QuotaHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0mw6d")
+stretch_mode = 5
+
+[node name="CoinHBoxContainer" type="HBoxContainer" parent="HBoxContainer/TopBarContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TopBarContainer/CoinHBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_0mw6d")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/TopBarContainer/CoinHBoxContainer"]
+layout_mode = 2
+text = "Coins"
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/TopBarContainer/CoinHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0mw6d")
+stretch_mode = 5
+
+[node name="ShipsHBoxContainer" type="HBoxContainer" parent="HBoxContainer/TopBarContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/TopBarContainer/ShipsHBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_0mw6d")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/TopBarContainer/ShipsHBoxContainer"]
+layout_mode = 2
+text = "Ships"
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/TopBarContainer/ShipsHBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_0mw6d")
+stretch_mode = 5
+
+[node name="PopupMenu" type="PopupMenu" parent="."]

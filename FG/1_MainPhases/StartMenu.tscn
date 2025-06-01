@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dmd1rjog6wfas" path="res://News/news_screen.tscn" id="1_8kcd2"]
 [ext_resource type="Script" uid="uid://dhudgpeh18vda" path="res://1_MainPhases/StartMenu.gd" id="1_vjyj3"]
 [ext_resource type="Texture2D" uid="uid://ux3knhilhijd" path="res://textures/Jun 1, 2025, 02_30_13 PM.png" id="2_jocel"]
-[ext_resource type="Texture2D" uid="uid://cnd0iph267lcn" path="res://textures/manedkitsune.jpeg" id="3_bh8am"]
+[ext_resource type="Texture2D" uid="uid://5cob7c5pu0sy" path="res://textures/Jun 1, 2025, 03_12_31 PM.png" id="4_mogej"]
 
 [sub_resource type="Theme" id="Theme_jocel"]
 
@@ -72,25 +72,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="TopSection" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer/TopSection"]
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/HBoxContainer/RightContainer"]
 layout_mode = 2
 
-[node name="GameInfo" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/TopSection/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="GameInfo" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Open x11 FREE Daily for 30 Yakisoba Breads"
 fit_content = true
 scroll_active = false
 
-[node name="GameInfo2" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/TopSection/VBoxContainer"]
+[node name="GameInfo2" type="RichTextLabel" parent="MainContainer/HBoxContainer/RightContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "New Thesa join the scene! Evils beware ! owo)"
 fit_content = true
 scroll_active = false
+
+[node name="TopSection" type="VBoxContainer" parent="MainContainer/HBoxContainer/RightContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
 
 [node name="NewsScreen" parent="MainContainer/HBoxContainer/RightContainer/TopSection" instance=ExtResource("1_8kcd2")]
 layout_mode = 2
@@ -128,8 +131,9 @@ offset_right = 56.0
 offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
+button_mask = 0
 text = "Start"
-icon = ExtResource("3_bh8am")
+icon = ExtResource("4_mogej")
 flat = true
 icon_alignment = 1
 expand_icon = true

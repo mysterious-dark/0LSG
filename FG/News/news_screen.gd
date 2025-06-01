@@ -7,7 +7,8 @@ extends Control
 @onready var timer = $Timer
 
 # JSON URL
-const NEWS_URL = "https://mysterious-dark.github.io/0LSG/content_Version2.json"
+const NEWS_URL = "https://mysterious-dark.github.io/0LSG/updates/content_Version2.json"
+const GACHA_URL = "https://mysterious-dark.github.io/0LSG/content_Version2.json"
 
 var dragging = false
 var drag_start = Vector2()

@@ -12,6 +12,11 @@ extends Control
 @export var refresh_interval: float = 10.0
 @export var dancingScriptFontLocation: String = "res://2_themes/font/Dancing_Script/DancingScript-VariableFont_wght.ttf"
 
+# Add these new variables at the top with other properties
+var last_etag: String = ""
+var last_modified: String = ""
+var last_content_hash: String = ""
+
 var dragging = false
 var drag_start = Vector2()
 var scroll_start = Vector2()
@@ -64,7 +69,6 @@ func _input(event):
 		scroll_container.scroll_vertical = scroll_start.y - delta.y
 
 func fetch_news():
-	if http_request.is_processing() || http_request.is_processing_internal():
 		# If a request is already in progress, skip this fetch
 		# This prevents multiple requests from being sent simultaneously
 		# and avoids potential issues with overlapping requests.
@@ -73,16 +77,47 @@ func fetch_news():
 		# For example, you could log a message or update the UI to indicate
 		# that a request is already in progress.
 	# Either wait or skip this request
+	if http_request.is_processing() || http_request.is_processing_internal():
 		print("HTTPRequest is already processing, skipping this fetch.")
 		return
 	else:
 		if(feed_url):
-			http_request.request(feed_url)
+			# Create a dictionary for headers
+			var headers = [
+				"If-None-Match: " + last_etag,
+				"If-Modified-Since: " + last_modified
+			]
+			# Make request with headers
+			http_request.request(feed_url, headers)
 		else:
-			print("the fuck is happening?")
+			print("Feed URL not set")
 
-
-func _on_request_completed(_result, _response_code, _headers, body):
+func _on_request_completed(result, response_code, headers, body):
+	# Check for 304 Not Modified response
+	if response_code == 304:
+		print("Content hasn't changed, using cached version")
+		return
+		
+	# Update ETag and Last-Modified from headers
+	for header in headers:
+		var header_lower = header.to_lower()
+		if header_lower.begins_with("etag:"):
+			last_etag = header.substr(5).strip_edges()
+		elif header_lower.begins_with("last-modified:"):
+			last_modified = header.substr(14).strip_edges()
+	
+	# Calculate hash of new content
+	var content_hash = body.get_string_from_utf8().hash()
+	
+	# Check if content has actually changed
+	if str(content_hash) == last_content_hash:
+		print("Content hash matches, no update needed")
+		return
+		
+	# Update the stored hash
+	last_content_hash = str(content_hash)
+	
+	# Parse and process the new content
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	if json == null:
 		print("Failed to parse JSON")

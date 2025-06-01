@@ -64,7 +64,14 @@ func _input(event):
 		scroll_container.scroll_vertical = scroll_start.y - delta.y
 
 func fetch_news():
-	if http_request.is_processing():
+	if http_request.is_processing() || http_request.is_processing_internal():
+		# If a request is already in progress, skip this fetch
+		# This prevents multiple requests from being sent simultaneously
+		# and avoids potential issues with overlapping requests.
+		# You can also choose to wait for the current request to complete
+		# before sending a new one, depending on your application's needs.
+		# For example, you could log a message or update the UI to indicate
+		# that a request is already in progress.
 	# Either wait or skip this request
 		print("HTTPRequest is already processing, skipping this fetch.")
 		return

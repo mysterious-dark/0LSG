@@ -13,8 +13,9 @@ config_version=5
 config/name="MonMiyaMeo"
 run/main_scene="uid://mw16s7uslxc4"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=60
 boot_splash/image="uid://da2l7rfy3qw77"
-config/icon="res://icon.svg"
+config/icon="uid://da2l7rfy3qw77"
 
 [display]
 

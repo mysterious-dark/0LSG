@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://df8fex3t17jll"
-path="res://.godot/imported/DancingScript-Bold.ttf-8baeeeb7a4b1f2389c9effe53fed8b89.fontdata"
+path="res://.godot/imported/DancingScript-Bold.ttf-d321ba316641cb411fcfd6114abd1cb4.fontdata"
 
 [deps]
 
-source_file="res://font/Dancing_Script/static/DancingScript-Bold.ttf"
-dest_files=["res://.godot/imported/DancingScript-Bold.ttf-8baeeeb7a4b1f2389c9effe53fed8b89.fontdata"]
+source_file="res://2_themes/font/Dancing_Script/static/DancingScript-Bold.ttf"
+dest_files=["res://.godot/imported/DancingScript-Bold.ttf-d321ba316641cb411fcfd6114abd1cb4.fontdata"]
 
 [params]
 

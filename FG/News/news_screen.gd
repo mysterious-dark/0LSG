@@ -10,12 +10,13 @@ extends Control
 @export var feed_url: String = ""
 @export var auto_refresh: bool = true
 @export var refresh_interval: float = 10.0
+@export var dancingScriptFontLocation: String = "res://2_themes/font/Dancing_Script/DancingScript-VariableFont_wght.ttf"
 
 var dragging = false
 var drag_start = Vector2()
 var scroll_start = Vector2()
 # Load the font
-var dancingScriptFont = preload("res://font/Dancing_Script/static/DancingScript-Regular.ttf")
+var dancingScriptFont = preload("res://2_themes/font/Dancing_Script/DancingScript-VariableFont_wght.ttf")
 
 func _ready():
 	# Configure ScrollContainer for touch scrolling

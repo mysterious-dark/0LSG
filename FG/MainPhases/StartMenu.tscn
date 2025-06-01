@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://mw16s7uslxc4"]
 
 [ext_resource type="PackedScene" uid="uid://dmd1rjog6wfas" path="res://News/news_screen.tscn" id="1_8kcd2"]
-[ext_resource type="Script" uid="uid://dhudgpeh18vda" path="res://MainPhases/hub.gd" id="1_vjyj3"]
+[ext_resource type="Script" uid="uid://dhudgpeh18vda" path="res://MainPhases/StartMenu.gd" id="1_vjyj3"]
 
 [node name="Hub" type="Control"]
 layout_mode = 3

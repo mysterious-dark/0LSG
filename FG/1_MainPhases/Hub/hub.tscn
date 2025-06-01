@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://xjlhfa4lxmb0"]
+[gd_scene load_steps=5 format=3 uid="uid://xjlhfa4lxmb0"]
 
 [ext_resource type="Texture2D" uid="uid://c3vkk383vl2cg" path="res://icon.svg" id="1_24hfv"]
 [ext_resource type="Texture2D" uid="uid://cghser7ty2pg0" path="res://textures/download.png" id="2_0mw6d"]
 [ext_resource type="Script" uid="uid://dops7x8g7ln1x" path="res://1_MainPhases/Hub/side_hub_buttons.gd" id="2_1smv4"]
-[ext_resource type="Script" uid="uid://c272xisn04skv" path="res://1_MainPhases/Hub/hub.gd" id="2_f545q"]
 [ext_resource type="Script" uid="uid://c4aojkfd7lcsc" path="res://1_MainPhases/Hub/button_feedback.gd" id="4_443ti"]
 
 [node name="Hub" type="Control"]
@@ -13,7 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_f545q")
 
 [node name="Background" type="Control" parent="."]
 anchors_preset = 0

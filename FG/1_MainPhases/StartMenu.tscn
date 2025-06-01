@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://mw16s7uslxc4"]
 
-[ext_resource type="PackedScene" uid="uid://dmd1rjog6wfas" path="res://News/news_screen.tscn" id="1_8kcd2"]
+[ext_resource type="PackedScene" uid="uid://dmd1rjog6wfas" path="res://1_MainPhases/News/news_screen.tscn" id="1_8kcd2"]
 [ext_resource type="Script" uid="uid://dhudgpeh18vda" path="res://1_MainPhases/StartMenu.gd" id="1_vjyj3"]
 [ext_resource type="Texture2D" uid="uid://ux3knhilhijd" path="res://textures/Jun 1, 2025, 02_30_13 PM.png" id="2_jocel"]
 [ext_resource type="Texture2D" uid="uid://5cob7c5pu0sy" path="res://textures/Jun 1, 2025, 03_12_31 PM.png" id="4_mogej"]
 
 [sub_resource type="Theme" id="Theme_jocel"]
 
-[node name="Hub" type="Control"]
+[node name="StartMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

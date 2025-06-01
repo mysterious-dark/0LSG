@@ -10,6 +10,8 @@ extends Control
 
 @onready var startButton = $MainContainer/HBoxContainer/RightContainer/BottomSection/ButtonControl/StartButton
 
+var nextScene = "res://1_MainPhases/Help/LoadingTransition.tscn"
+
 func _ready():
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
@@ -36,23 +38,9 @@ func _on_start_button_input(event):
 			_on_start_button_pressed()
 			
 func _on_start_button_pressed():
-	# Change to the hub scene
-	#get_tree().change_scene_to_file("res://1_MainPhases/Hub/hub.tscn")
-		# Optional: Add a fade transition
-	var transition = ColorRect.new()
-	transition.color = Color.BLACK
-	transition.modulate = Color(0, 0, 0, 0)  # Start fully transparent
-	transition.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(transition)
-	
-	# Create a tween for the fade effect
-	var tween = create_tween()
-	tween.tween_property(transition, "modulate", Color(0, 0, 0, 1), 0.5)  # Fade to black
-	await tween.finished
-	
 	# Change scene
-	get_tree().change_scene_to_file("res://1_MainPhases/Hub/hub.tscn")
+	FadeOutEffect._on_fadeout(self, 1.2, nextScene)
 	
 func _on_window_size_changed():
 	var window_size = DisplayServer.window_get_size()
-	var is_portrait = window_size.y > window_size.x
+	var _is_portrait = window_size.y > window_size.x

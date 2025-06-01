@@ -83,7 +83,7 @@ func _on_request_completed(_result, _response_code, _headers, body):
 			var news_item = create_news_item(item["title"], item["description"], 'item["image"], item["icon"], item["hue"]')
 			news_container.add_child(news_item)
 
-func create_news_item(title: String, description: String, image: String="", icon: String="", hue: String="") -> PanelContainer:
+func create_news_item(title: String, description: String, _image: String="", _icon: String="", _hue: String="") -> PanelContainer:
 	# Create a container for the news item
 	var panel = PanelContainer.new()
 	

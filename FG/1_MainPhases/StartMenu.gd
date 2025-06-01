@@ -10,7 +10,7 @@ extends Control
 
 @onready var startButton = $MainContainer/HBoxContainer/RightContainer/BottomSection/ButtonControl/StartButton
 
-var nextScene = "res://1_MainPhases/Help/LoadingTransition.tscn"
+static var nextScene = "res://1_MainPhases/Help/LoadingTransition.tscn"
 
 func _ready():
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS

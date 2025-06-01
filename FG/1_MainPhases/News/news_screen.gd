@@ -33,7 +33,7 @@ func _ready():
 		print("Waiting for forced urls loading")
 	# Optional: Set up auto-refresh timer
 	timer.connect("timeout", fetch_news)
-	timer.start(12.0)  # Update every 10 seconds
+	timer.start(refresh_interval)  # Update every 10 seconds
 
 # Handle touch input
 func _input(event):
@@ -64,8 +64,16 @@ func _input(event):
 		scroll_container.scroll_vertical = scroll_start.y - delta.y
 
 func fetch_news():
-	if(feed_url):
-		http_request.request(feed_url)
+	if http_request.is_processing():
+	# Either wait or skip this request
+		print("HTTPRequest is already processing, skipping this fetch.")
+		return
+	else:
+		if(feed_url):
+			http_request.request(feed_url)
+		else:
+			print("the fuck is happening?")
+
 
 func _on_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())

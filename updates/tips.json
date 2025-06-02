@@ -1,0 +1,65 @@
+{
+    "items": [
+        {
+            "title": "Tip of the Day: Summon Strategy",
+            "description": "Always save your gems for limited-time banners to maximize your chances of getting rare heroes! 💎",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/luna_banner.png"
+        },
+        {
+            "title": "Hero Synergy: Team Composition",
+            "description": "Pair heroes with complementary skills for better synergy in battles. For example, combine a healer with a damage dealer! ⚔️❤️",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/riko_banner.png"
+        },
+        {
+            "title": "Resource Management: Gems and Gold",
+            "description": "Prioritize spending gems on banners and gold on upgrading your heroes to keep your team strong! 💰",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/summer_event.png"
+        },
+        {
+            "title": "Event Participation: Limited-Time Events",
+            "description": "Join events for exclusive rewards and unique heroes. Don’t miss out on these opportunities! 🎉",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/evelyn_rateup.png"
+        },
+        {
+            "title": "Daily Quests: Free Rewards",
+            "description": "Complete daily quests for free gems and resources. Log in every day to maximize your rewards! 📅",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/beginner_banner.png"
+        },
+        {
+            "title": "Stars and Ascension: Hero Upgrades",
+            "description": "Upgrade your heroes by collecting stars and ascending them to unlock their full potential! 🌟",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/community_tips.png"
+        },
+        {
+            "title": "Monthly Login Bonus: Free Gems",
+            "description": "Don’t forget to log in daily for your monthly bonus! Collect free gems and resources just for playing! 🎁",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/community_tips.png"
+        },
+        {
+            "title": "When the Stars Align: Hero Power Boost",
+            "description": "22nd every month, all heroes stats will be buffed by 10 times! Use this opportunity to challenge harder content! 🌌",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/community_tips.png"
+        },
+        {
+            "title": "Community Tip: Team Up!",
+            "description": "Join the community to share tips and strategies with other players. Teamwork makes the dream work! 🤝",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/community_tips.png"
+        },
+        {
+            "title": "Revival System: Bring Back Your Heroes",
+            "description": "Lost a battle? Use the revival system to bring them back to life with a small cost. Don’t let your chances fade away! 💀",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/revive.png"
+        },
+        {
+            "title": "Hero Customization: Skins and Outfits",
+            "description": "Unlock unique skins and outfits for your heroes to personalize your team. Look good while you fight! 🎨",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/customization.png"
+        },
+        {
+            "title": "Guilds: Join Forces",
+            "description": "Create or join a guild to participate in guild wars and earn exclusive rewards. Strength in numbers! 🏰",
+            "image": "https://raw.githubusercontent.com/0LSG/0LSG.github.io/main/0LSG/images/guilds.png"
+        }
+        
+    ]
+}

@@ -4,7 +4,6 @@ extends TextureButton
 @export var animation_speed: float = 0.1  # Speed of the press animation
 
 var original_scale: Vector2
-var is_pressed: bool = false
 var tween: Tween  # Store the tween for cleanup
 
 func _ready() -> void:
@@ -15,19 +14,12 @@ func _ready() -> void:
 
 func _on_button_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
-		if event.pressed and not is_pressed:
+		if event.pressed:
 			_animate_press()
-		elif not event.pressed and is_pressed:
+		elif not event.pressed:
 			_animate_release()
-	elif event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed and not is_pressed:
-				_animate_press()
-			elif not event.pressed and is_pressed:
-				_animate_release()
 
 func _animate_press() -> void:
-	is_pressed = true
 	# Kill previous tween if it exists
 	if tween and tween.is_valid():
 		tween.kill()
@@ -38,7 +30,6 @@ func _animate_press() -> void:
 	tween.tween_property(self, "scale", original_scale * press_scale, animation_speed)
 
 func _animate_release() -> void:
-	is_pressed = false
 	# Kill previous tween if it exists
 	if tween and tween.is_valid():
 		tween.kill()

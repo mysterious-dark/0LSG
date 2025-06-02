@@ -10,7 +10,7 @@ extends Control
 @export var feed_url: String = ""
 @export var auto_refresh: bool = true
 @export var refresh_interval: float = 10.0
-@export var dancingScriptFontLocation: String = "res://2_themes/font/Dancing_Script/DancingScript-VariableFont_wght.ttf"
+@export var dancingScriptFont = preload("res://2_themes/font/Dancing_Script/DancingScript-VariableFont_wght.ttf")
 
 # Add these new variables at the top with other properties
 var last_etag: String = ""
@@ -21,7 +21,11 @@ var dragging = false
 var drag_start = Vector2()
 var scroll_start = Vector2()
 # Load the font
-var dancingScriptFont = preload("res://2_themes/font/Dancing_Script/DancingScript-VariableFont_wght.ttf")
+
+var db=globalVariables.db
+
+var db_error = globalVariables.db_error
+var json_string: String = ""
 
 func _ready():
 	# Configure ScrollContainer for touch scrolling
@@ -81,7 +85,13 @@ func fetch_news():
 		print("HTTPRequest is already processing, skipping this fetch.")
 		return
 	else:
-		if(feed_url):
+		var err = HTTPClient.new().connect_to_host("8.8.8.8", 53) # DNS check
+	
+		if err != OK:
+			print("No internet connection, using cached data")
+			load_cached_news()
+			return
+		elif(feed_url):
 			# Create a dictionary for headers
 			var headers = [
 				"If-None-Match: " + last_etag,
@@ -92,7 +102,12 @@ func fetch_news():
 		else:
 			print("Feed URL not set")
 
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("Request failed with result: %s" % result)
+		load_cached_news()
+		return
+	
 	# Check for 304 Not Modified response
 	if response_code == 304:
 		print("Content hasn't changed, using cached version")
@@ -106,23 +121,31 @@ func _on_request_completed(result, response_code, headers, body):
 		elif header_lower.begins_with("last-modified:"):
 			last_modified = header.substr(14).strip_edges()
 	
-	# Calculate hash of new content
-	var content_hash = body.get_string_from_utf8().hash()
+	json_string = body.get_string_from_utf8()
+	var content_hash = str(json_string.hash())
 	
 	# Check if content has actually changed
-	if str(content_hash) == last_content_hash:
+	if content_hash == last_content_hash:
 		print("Content hash matches, no update needed")
 		return
 		
 	# Update the stored hash
-	last_content_hash = str(content_hash)
+	last_content_hash = content_hash
 	
 	# Parse and process the new content
-	var json = JSON.parse_string(body.get_string_from_utf8())
+	var json = JSON.parse_string(json_string)
 	if json == null:
-		print("Failed to parse JSON")
+		push_error("Failed to parse JSON")
+		load_cached_news()
 		return
-		
+	
+	# Save the new data to cache
+	save_to_cache(json_string, last_etag, content_hash)
+	
+	# Display the news items
+	display_news_items(json)
+
+func display_news_items(json: Dictionary):
 	# Clear existing news items
 	for child in news_container.get_children():
 		child.queue_free()
@@ -132,6 +155,56 @@ func _on_request_completed(result, response_code, headers, body):
 		for item in json["items"]:
 			var news_item = create_news_item(item["title"], item["description"], 'item["image"], item["icon"], item["hue"]')
 			news_container.add_child(news_item)
+
+func save_to_cache(json_data: String, etag: String, content_hash: String):
+	# First, clear existing cache
+	var clear_result = db.query("DELETE FROM news_cache")
+	if clear_result == false:
+		push_error("Failed to clear cache: %s" % clear_result)
+		return
+	
+	# Escape double quotes in json string to avoid SQL errors
+	json_data = json_data.replace('"', '""')
+	etag = etag.replace('"', '""')
+	content_hash = content_hash.replace('"', '""')
+
+	# Insert new data
+	var query = """
+	INSERT INTO news_cache (json_data, etag, content_hash, timestamp)
+	VALUES (?, ?, ?, ?)
+	"""
+	
+	# Build SQL string manually (⚠️ make sure input is safe)
+	var sql = '''
+		INSERT INTO news_cache (json_data, etag, content_hash)
+		VALUES ("%s", "%s", "%s")
+	''' % [json_data, etag, content_hash]
+
+	var insert_result = db.query(sql)
+
+	if not insert_result:
+		push_error("Failed to insert cache: %s" % insert_result)
+		return
+
+func load_cached_news():
+	var query = "SELECT * FROM news_cache ORDER BY timestamp DESC LIMIT 1"
+	var result = db.query_with_args(query, [])
+	
+	if typeof(result) == TYPE_ARRAY and not result.is_empty():
+		var cached_data = result[0]
+		if cached_data.has_all(["etag", "last_modified", "content_hash", "json_data"]):
+			last_etag = cached_data["etag"]
+			last_modified = cached_data["last_modified"]
+			last_content_hash = cached_data["content_hash"]
+			
+			# Parse and display cached JSON data
+			var json = JSON.parse_string(cached_data["json_data"])
+			if json != null:
+				display_news_items(json)
+			else:
+				push_error("Failed to parse cached JSON data")
+		else:
+			push_error("Cached data is missing required fields")
 
 func create_news_item(title: String, description: String, _image: String="", _icon: String="", _hue: String="") -> PanelContainer:
 	# Create a container for the news item

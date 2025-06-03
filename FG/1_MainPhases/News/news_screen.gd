@@ -82,11 +82,12 @@ func fetch_news():
 		# that a request is already in progress.
 	# Either wait or skip this request
 	if http_request.is_processing() || http_request.is_processing_internal():
-		print("HTTPRequest is already processing, skipping this fetch.")
+		#print("HTTPRequest is already processing, skipping this fetch.")
 		return
 	else:
-		var err = HTTPClient.new().connect_to_host("8.8.8.8", 53) # DNS check
+		var err = globalVariables.globalHttpClient.connect_to_host("8.8.8.8", 53) # DNS check
 	
+		#if false:
 		if err != OK:
 			print("No internet connection, using cached data")
 			load_cached_news()
@@ -110,7 +111,7 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	
 	# Check for 304 Not Modified response
 	if response_code == 304:
-		print("Content hasn't changed, using cached version")
+		#print("Content hasn't changed, using cached version")
 		return
 		
 	# Update ETag and Last-Modified from headers
@@ -126,7 +127,7 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	
 	# Check if content has actually changed
 	if content_hash == last_content_hash:
-		print("Content hash matches, no update needed")
+		#print("Content hash matches, no update needed")
 		return
 		
 	# Update the stored hash
@@ -168,12 +169,6 @@ func save_to_cache(json_data: String, etag: String, content_hash: String):
 	etag = etag.replace('"', '""')
 	content_hash = content_hash.replace('"', '""')
 
-	# Insert new data
-	var query = """
-	INSERT INTO news_cache (json_data, etag, content_hash, timestamp)
-	VALUES (?, ?, ?, ?)
-	"""
-	
 	# Build SQL string manually (⚠️ make sure input is safe)
 	var sql = '''
 		INSERT INTO news_cache (json_data, etag, content_hash)
@@ -181,30 +176,33 @@ func save_to_cache(json_data: String, etag: String, content_hash: String):
 	''' % [json_data, etag, content_hash]
 
 	var insert_result = db.query(sql)
+	#print(sql)
 
 	if not insert_result:
 		push_error("Failed to insert cache: %s" % insert_result)
 		return
 
 func load_cached_news():
-	var query = "SELECT * FROM news_cache ORDER BY timestamp DESC LIMIT 1"
-	var result = db.query_with_args(query, [])
+	var columns = ["*"]
+	var query_result = db.select_rows("news_cache","",columns)
 	
-	if typeof(result) == TYPE_ARRAY and not result.is_empty():
-		var cached_data = result[0]
-		if cached_data.has_all(["etag", "last_modified", "content_hash", "json_data"]):
-			last_etag = cached_data["etag"]
-			last_modified = cached_data["last_modified"]
-			last_content_hash = cached_data["content_hash"]
-			
-			# Parse and display cached JSON data
-			var json = JSON.parse_string(cached_data["json_data"])
-			if json != null:
-				display_news_items(json)
-			else:
-				push_error("Failed to parse cached JSON data")
-		else:
-			push_error("Cached data is missing required fields")
+	#print("testing\n\n", query_result)
+		
+		#var row = result[0]
+		#if row.has_all(["etag", "last_modified", "content_hash", "json_data"]):
+			#last_etag = result["etag"]
+			#last_modified = result["last_modified"]
+			#last_content_hash = result["content_hash"]
+			#
+			## Parse and display cached JSON data
+			#var json = JSON.parse_string(result["json_data"])
+			#if json != null:
+				#display_news_items(json)
+			#else:
+#
+				#push_error("Failed to parse cached JSON data")
+		#else:
+			#push_error("Cached data is missing required fields")
 
 func create_news_item(title: String, description: String, _image: String="", _icon: String="", _hue: String="") -> PanelContainer:
 	# Create a container for the news item

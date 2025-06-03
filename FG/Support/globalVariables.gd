@@ -15,5 +15,5 @@ static var db_schema_version: int = 1
 static var db_table_news: String = "news"
 static var db_table_gacha: String = "gacha"
 # Database table columns
-
+static var globalHttpClient = HTTPClient.new()
 	

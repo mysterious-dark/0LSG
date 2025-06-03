@@ -47,23 +47,29 @@ offset_bottom = 56.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
+offset_left = 700.0
+offset_top = 303.5
+offset_right = 900.0
+offset_bottom = 416.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LoadingLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="LoadingLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Loading..."
 horizontal_alignment = 1
 
-[node name="StatusLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Checking player data..."
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2

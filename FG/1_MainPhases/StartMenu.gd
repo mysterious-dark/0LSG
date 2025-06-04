@@ -7,8 +7,6 @@ extends Control
 
 @onready var startButton = $MainContainer/HBoxContainer/RightContainer/BottomSection/ButtonControl/StartButton
 
-static var nextScene = "res://1_MainPhases/Help/LoadingTransition.tscn"
-
 func _ready():
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
@@ -36,7 +34,7 @@ func _on_start_button_input(event):
 			
 func _on_start_button_pressed():
 	# Change scene
-	FadeOutEffect._on_fadeout(self, 1.2, nextScene)
+	FadeOutEffect._on_fadeout(self, 1.2, globalVariables.firstLoadingScene)
 	
 func _on_window_size_changed():
 	var window_size = DisplayServer.window_get_size()

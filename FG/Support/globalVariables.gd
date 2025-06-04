@@ -3,6 +3,7 @@ extends Node
 # Global variables for the game
 static var NEWS_URL: String = "https://mysterious-dark.github.io/0LSG/updates/content_Version2.json"
 static var GACHA_URL: String = "https://mysterious-dark.github.io/0LSG/updates/gacha.json"
+static var firstLoadingScene = "res://1_MainPhases/Help/FirstLoadingTransition.tscn"
 
 # Database variables
 static var db: SQLite 

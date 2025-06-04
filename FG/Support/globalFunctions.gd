@@ -14,3 +14,21 @@ static func initialize_database():
 	"""
 	
 	globalVariables.db.query(query)
+
+static func check_for_character() -> bool:
+	# TODO: Implement your character check logic here
+	# This could involve checking a save file, database, or other storage
+	
+	return true
+	# # Example implementation:
+	# var save_file = FileAccess.open("user://player_data.save", FileAccess.READ)
+	# if save_file == null:
+	# 	return false
+		
+	# # Read and parse your save data here
+	# # For example:
+	# # var data = JSON.parse_string(save_file.get_as_text())
+	# # return data != null and data.has("character_created") and data.character_created
+	
+	# # Temporary return false to force character creation
+	# return false

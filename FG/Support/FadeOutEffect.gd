@@ -15,8 +15,6 @@ static func _on_fadeout(CurrentNode: Node,fade_duration: float = 1.0, nextScene:
 	tween.tween_property(transition, "modulate", Color(0, 0, 0, 1),fade_duration)  # Fade to black
 	await tween.finished
 	
-	print("fuck off bugs")
-	
 	CurrentNode.get_tree().change_scene_to_file(nextScene)
 	# Wait for the fade duration
 	# Remove the transition after fading out

@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfok78tfta51q"]
-
-[ext_resource type="Texture2D" uid="uid://cxxq1vbdw5snx" path="res://textures/Image Jun 4, 2025, 07_31_54 PM.png" id="1_yd3ya"]
+[gd_scene uid="uid://dfok78tfta51q"]
 
 [node name="atlastile" type="Node2D"]
 scale = Vector2(0.075, 0.075)
@@ -8,6 +6,5 @@ scale = Vector2(0.075, 0.075)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 2
-texture = ExtResource("1_yd3ya")
 region_enabled = true
 region_rect = Rect2(0, 0, 256, 256)

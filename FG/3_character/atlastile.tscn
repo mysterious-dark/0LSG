@@ -1,12 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4gul6unsjyxg"]
+[gd_scene format=3 uid="uid://b4gul6unsjyxg"]
 
-[ext_resource type="Texture2D" uid="uid://cnd0iph267lcn" path="res://textures/manedkitsune.jpeg" id="1_jstj5"]
-
-[node name="atlastile" type="Node2D"]
-scale = Vector2(0.075, 0.075)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("1_jstj5")
-region_enabled = true
-region_rect = Rect2(587.528, 982.336, 183.477, 177.918)
+[node name="TutorialCombat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0

@@ -143,6 +143,9 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	# Save the new data to cache
 	save_to_cache(json_string, last_etag, content_hash)
 	
+	# Reload the cached news
+	load_cached_news()
+	
 	# Display the news items
 	display_news_items(json)
 
@@ -184,25 +187,27 @@ func save_to_cache(json_data: String, etag: String, content_hash: String):
 
 func load_cached_news():
 	var columns = ["*"]
-	var query_result = db.select_rows("news_cache","",columns)
+	var table_name = "news_cache"
+	var query_result = db.select_rows(table_name,"",columns)
 	
 	#print("testing\n\n", query_result)
 		
 		#var row = result[0]
-		#if row.has_all(["etag", "last_modified", "content_hash", "json_data"]):
-			#last_etag = result["etag"]
-			#last_modified = result["last_modified"]
-			#last_content_hash = result["content_hash"]
-			#
-			## Parse and display cached JSON data
-			#var json = JSON.parse_string(result["json_data"])
-			#if json != null:
-				#display_news_items(json)
-			#else:
-#
-				#push_error("Failed to parse cached JSON data")
-		#else:
-			#push_error("Cached data is missing required fields")
+	var row = query_result[0]
+	if row.has_all(["etag", "timestamp", "content_hash", "json_data"]):
+		last_etag = row["etag"]
+		last_modified = row["timestamp"]
+		last_content_hash = row["content_hash"]
+		
+		# Parse and display cached JSON data
+		var json = JSON.parse_string(row["json_data"])
+		if json != null:
+			display_news_items(json)
+			print("reset thanh cong")
+		else:
+			push_error("Failed to parse cached JSON data")
+	else:
+		push_error("Cached data is missing required fields")
 
 func create_news_item(title: String, description: String, _image: String="", _icon: String="", _hue: String="") -> PanelContainer:
 	# Create a container for the news item

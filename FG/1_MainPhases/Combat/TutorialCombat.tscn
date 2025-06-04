@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://chy0nsj8d2375"]
+[gd_scene format=3 uid="uid://gh54pd0irgfg"]
 
-[node name="TutorialCombat" type="Node2D"]
+[node name="TutorialCombat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

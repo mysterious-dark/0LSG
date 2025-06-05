@@ -3,7 +3,7 @@ extends Node3D
 # Grid configuration
 const GRID_WIDTH: int = 10
 const GRID_HEIGHT: int = 5
-const TILE_SIZE: float = 1.0
+const TILE_SIZE: float = 2.0
 
 # Touch control variables
 var touch_start_position: Vector2
@@ -23,9 +23,10 @@ func _ready() -> void:
 
 func create_grid() -> void:
 	# Center the grid
+
 	grid_container.position = Vector3(
-		-(GRID_WIDTH * TILE_SIZE) / 2.0, 
-		0, 
+		-(GRID_WIDTH * TILE_SIZE) / 2.0,
+		0,
 		-(GRID_HEIGHT * TILE_SIZE) / 2.0
 	)
 	
@@ -36,14 +37,19 @@ func create_grid() -> void:
 	# Create tiles
 	for z in range(GRID_HEIGHT):
 		for x in range(GRID_WIDTH):
+			randomize()
+
+			var y_options = [1, 2]
+			var random_y = y_options[randi() % y_options.size()]
+
 			var tile := MeshInstance3D.new()
 			tile.mesh = tile_mesh
-			tile.position = Vector3(x * TILE_SIZE, 0, z * TILE_SIZE)
+			tile.position = Vector3(x * TILE_SIZE, random_y, z * TILE_SIZE)
 			
 			# Make middle row walkable (different color)
 			var material := StandardMaterial3D.new()
 			if z == GRID_HEIGHT / 2:
-				material.albedo_color = Color(0.4, 0.4, 0.4)
+				material.albedo_color = Color(0.6, 0.6, 0.6)
 			else:
 				material.albedo_color = Color(0.2, 0.2, 0.2)
 			

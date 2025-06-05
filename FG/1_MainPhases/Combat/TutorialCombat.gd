@@ -1,9 +1,5 @@
 extends Node3D
 
-# Add at the top of TutorialCombat.gd
-const GridData = preload("res://1_MainPhases/Combat/GridData.gd")
-const GridManager = preload("res://1_MainPhases/Combat/GridManager.gd")
-
 # Grid configuration
 const GRID_WIDTH: int = 10
 const GRID_HEIGHT: int = 5
@@ -67,7 +63,7 @@ func create_grid() -> void:
 			
 			# Setup material
 			var material := StandardMaterial3D.new()
-			if z == int(GRID_HEIGHT / 2):
+			if z == 2:
 				material.albedo_color = Color(0.6, 0.6, 0.6)
 				tile_container.position.y = 1
 			else:

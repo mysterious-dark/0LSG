@@ -17,7 +17,7 @@ func initialize_grid(width: int, height: int) -> void:
 		var row: Array[GridData] = []
 		for x in range(width):
 			# Default configuration
-			var walkable := z == height/2  # Middle row is walkable
+			var walkable := z == 2  # Middle row is walkable
 			var texture_id := 1 if walkable else 2
 			var y_pos := 1 if walkable else 2
 			row.append(GridData.new(walkable, texture_id, y_pos))

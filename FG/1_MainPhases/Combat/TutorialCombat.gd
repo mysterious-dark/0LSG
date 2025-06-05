@@ -1,5 +1,9 @@
 extends Node3D
 
+# Add at the top of TutorialCombat.gd
+const GridData = preload("res://1_MainPhases/Combat/GridData.gd")
+const GridManager = preload("res://1_MainPhases/Combat/GridManager.gd")
+
 # Grid configuration
 const GRID_WIDTH: int = 10
 const GRID_HEIGHT: int = 5
@@ -20,8 +24,12 @@ var selected_grid_pos: Vector2i = Vector2i(-1, -1)  # Store last selected grid p
 
 @onready var camera: Camera3D = $Camera3D
 @onready var grid_container: Node3D = $GridContainer
+# Add after @onready variables
+var grid_manager: GridManager
 
 func _ready() -> void:
+	grid_manager = GridManager.new()
+	grid_manager.initialize_grid(GRID_WIDTH, GRID_HEIGHT)
 	create_grid()
 
 func create_grid() -> void:
@@ -157,4 +165,8 @@ func world_to_grid(world_pos: Vector3) -> Vector2i:
 	grid_x = clamp(grid_x, 0, GRID_WIDTH - 1)
 	grid_z = clamp(grid_z, 0, GRID_HEIGHT - 1)
 	
+	# Add to your touch handling code after world_to_grid
+	var tile_data := grid_manager.get_tile_data(selected_grid_pos.x, selected_grid_pos.y)
+	if tile_data:
+		print("Selected tile - Walkable: ", tile_data.walkable, " Texture: ", tile_data.texture_id)
 	return Vector2i(grid_x, grid_z)

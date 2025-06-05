@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://gh54pd0irgfg"]
+
+[ext_resource type="Script" uid="uid://iwaqocucclhf" path="res://1_MainPhases/Combat/TutorialCombat.gd" id="1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xe7ag"]
+
+[node name="TutorialCombat" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 12, 6)
+cull_mask = 506895
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10, 0)
+
+[node name="GridContainer" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridContainer"]
+mesh = SubResource("CapsuleMesh_xe7ag")
+skeleton = NodePath("")
+
+[node name="TouchControls" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CameraControl" type="Control" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

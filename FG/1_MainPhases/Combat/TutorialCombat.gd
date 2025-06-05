@@ -72,6 +72,19 @@ func handle_touch(event: InputEventScreenTouch) -> void:
 			touch_start_position = event.position
 			camera_start_position = camera.position
 			is_dragging = true
+			
+			# Optional: Add raycast for tile selection
+			var ray_length: float = 1000.0
+			var from: Vector3 = camera.project_ray_origin(event.position)
+			var to: Vector3 = from + camera.project_ray_normal(event.position) * ray_length
+			
+			var space: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+			var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
+			var result: Dictionary = space.intersect_ray(query)
+			print("wutresult",result)
+			if not result.is_empty():
+				print("Touched position: ", result.position)
+				
 		# If this is the second touch point
 		elif touch_points.size() == 2:
 			initial_camera_z = camera.position.z
@@ -112,17 +125,3 @@ func handle_drag(event: InputEventScreenDrag) -> void:
 				
 				# Clamp zoom level
 				camera.position.z = clamp(target_z, 3.0, 10.0)
-
-# Optional: Add raycast for tile selection
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch and event.pressed:
-		var ray_length: float = 1000.0
-		var from: Vector3 = camera.project_ray_origin(event.position)
-		var to: Vector3 = from + camera.project_ray_normal(event.position) * ray_length
-		
-		var space: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
-		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
-		var result: Dictionary = space.intersect_ray(query)
-		
-		if not result.is_empty():
-			print("Touched position: ", result.position)

@@ -29,30 +29,133 @@ var grid_manager: GridManager
 
 func _ready() -> void:
 	grid_manager = GridManager.new()
-	grid_manager.initialize_grid(GRID_WIDTH, GRID_HEIGHT)
+	# grid_manager.initialize_grid(GRID_WIDTH, GRID_HEIGHT)
+	load_grid_from_json()
 	create_grid()
 
+# func create_grid() -> void:
+# 	grid_container.position = Vector3(
+# 		-(GRID_WIDTH * TILE_SIZE) / 2.0,
+# 		0,
+# 		-(GRID_HEIGHT * TILE_SIZE) / 2.0
+# 	)
+	
+# 	# Create tile mesh
+# 	var tile_mesh := PlaneMesh.new()
+# 	tile_mesh.size = Vector2(TILE_SIZE * 0.9, TILE_SIZE * 0.9)
+	
+# 	# Create tiles
+# 	for z in range(GRID_HEIGHT):
+# 		for x in range(GRID_WIDTH):
+# 			randomize()
+# 			var y_options = [1, 2]
+# 			var random_y = y_options[randi() % y_options.size()]
+
+# 			# Create the tile container
+# 			var tile_container := Node3D.new()
+# 			tile_container.position = Vector3(x * TILE_SIZE, random_y, z * TILE_SIZE)
+			
+# 			# Create visual mesh
+# 			var tile := MeshInstance3D.new()
+# 			tile.mesh = tile_mesh
+			
+# 			# Create static body for collision
+# 			var static_body := StaticBody3D.new()
+# 			var collision_shape := CollisionShape3D.new()
+# 			var box_shape := BoxShape3D.new()
+# 			box_shape.size = Vector3(TILE_SIZE * 0.9, 0.1, TILE_SIZE * 0.9)
+# 			collision_shape.shape = box_shape
+			
+# 			# Setup material
+# 			var material := StandardMaterial3D.new()
+# 			if z == 2:
+# 				material.albedo_color = Color(0.6, 0.6, 0.6)
+# 				tile_container.position.y = 1
+# 			else:
+# 				tile_container.position.y = 2
+# 				material.albedo_color = Color(0.2, 0.2, 0.2)
+			
+# 			tile.material_override = material
+			
+# 			# Add everything to the container
+# 			tile_container.add_child(tile)
+# 			tile_container.add_child(static_body)
+# 			static_body.add_child(collision_shape)
+			
+# 			grid_container.add_child(tile_container)
+
+# functional grid with even tiles
+# func create_grid() -> void:
+# 	grid_container.position = Vector3(
+# 		-(GRID_WIDTH * TILE_SIZE) / 2.0,
+# 		0,
+# 		-(GRID_HEIGHT * TILE_SIZE) / 2.0
+# 	)
+	
+# 	# Create tile mesh
+# 	var tile_mesh := PlaneMesh.new()
+# 	tile_mesh.size = Vector2(TILE_SIZE * 0.9, TILE_SIZE * 0.9)
+	
+# 	# Create tiles based on grid data
+# 	for z in range(GRID_HEIGHT):
+# 		for x in range(GRID_WIDTH):
+# 			var tile_data = grid_manager.get_tile_data(x, z)
+# 			if not tile_data:
+# 				continue
+				
+# 			# Create the tile container
+# 			var tile_container := Node3D.new()
+# 			tile_container.position = Vector3(x * TILE_SIZE, tile_data.y_pos, z * TILE_SIZE)
+			
+# 			# Create visual mesh
+# 			var tile := MeshInstance3D.new()
+# 			tile.mesh = tile_mesh
+			
+# 			# Create static body for collision
+# 			var static_body := StaticBody3D.new()
+# 			var collision_shape := CollisionShape3D.new()
+# 			var box_shape := BoxShape3D.new()
+# 			box_shape.size = Vector3(TILE_SIZE * 0.9, 0.1, TILE_SIZE * 0.9)
+# 			collision_shape.shape = box_shape
+			
+# 			# Setup material
+# 			var material := StandardMaterial3D.new()
+# 			if tile_data.walkable:
+# 				material.albedo_color = Color(0.6, 0.6, 0.6)
+# 			else:
+# 				material.albedo_color = Color(0.2, 0.2, 0.2)
+			
+# 			tile.material_override = material
+			
+# 			# Add everything to the container
+# 			tile_container.add_child(tile)
+# 			tile_container.add_child(static_body)
+# 			static_body.add_child(collision_shape)
+			
+# 			grid_container.add_child(tile_container)
+
 func create_grid() -> void:
+	# Calculate grid boundaries based on actual data
+	var grid_width = grid_manager.max_width
+	var grid_height = grid_manager.grid_data.size()
+	
 	grid_container.position = Vector3(
-		-(GRID_WIDTH * TILE_SIZE) / 2.0,
+		-(grid_width * TILE_SIZE) / 2.0,
 		0,
-		-(GRID_HEIGHT * TILE_SIZE) / 2.0
+		-(grid_height * TILE_SIZE) / 2.0
 	)
 	
 	# Create tile mesh
 	var tile_mesh := PlaneMesh.new()
 	tile_mesh.size = Vector2(TILE_SIZE * 0.9, TILE_SIZE * 0.9)
 	
-	# Create tiles
-	for z in range(GRID_HEIGHT):
-		for x in range(GRID_WIDTH):
-			randomize()
-			var y_options = [1, 2]
-			var random_y = y_options[randi() % y_options.size()]
-
+	# Create tiles based on grid data
+	for z in grid_manager.grid_data.keys():
+		for tile_data in grid_manager.grid_data[z]:
 			# Create the tile container
 			var tile_container := Node3D.new()
-			tile_container.position = Vector3(x * TILE_SIZE, random_y, z * TILE_SIZE)
+			var x_pos = tile_data.x_pos if tile_data.x_pos >= 0 else 0
+			tile_container.position = Vector3(x_pos * TILE_SIZE, tile_data.y_pos, z * TILE_SIZE)
 			
 			# Create visual mesh
 			var tile := MeshInstance3D.new()
@@ -67,11 +170,9 @@ func create_grid() -> void:
 			
 			# Setup material
 			var material := StandardMaterial3D.new()
-			if z == 2:
+			if tile_data.walkable:
 				material.albedo_color = Color(0.6, 0.6, 0.6)
-				tile_container.position.y = 1
 			else:
-				tile_container.position.y = 2
 				material.albedo_color = Color(0.2, 0.2, 0.2)
 			
 			tile.material_override = material
@@ -82,7 +183,7 @@ func create_grid() -> void:
 			static_body.add_child(collision_shape)
 			
 			grid_container.add_child(tile_container)
-
+			
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		handle_touch(event)
@@ -152,21 +253,34 @@ func handle_drag(event: InputEventScreenDrag) -> void:
 				var target_z: float = initial_camera_z / zoom_factor
 				camera.position.z = clamp(target_z, 3.0, 10.0)
 
-# Add this function to convert world position to grid coordinates
+# Update the world_to_grid function to handle uneven grids
 func world_to_grid(world_pos: Vector3) -> Vector2i:
-	# Adjust position relative to grid container's position
+# 	# Adjust position relative to grid container's position
 	var local_pos: Vector3 = world_pos - grid_container.position
 	
-	# Convert to grid coordinates
+# 	# Convert to grid coordinates
 	var grid_x: int = int(round(local_pos.x / TILE_SIZE))
 	var grid_z: int = int(round(local_pos.z / TILE_SIZE))
 	
-	# Ensure coordinates are within grid bounds
-	grid_x = clamp(grid_x, 0, GRID_WIDTH - 1)
-	grid_z = clamp(grid_z, 0, GRID_HEIGHT - 1)
+	# Check if the position is valid in our uneven grid
+	if grid_manager.get_tile_data(grid_x, grid_z) != null:
+		return Vector2i(grid_x, grid_z)
+	return Vector2i(-1, -1)  # Invalid position
 	
-	# Add to your touch handling code after world_to_grid
-	var tile_data := grid_manager.get_tile_data(selected_grid_pos.x, selected_grid_pos.y)
-	if tile_data:
-		print("Selected tile - Walkable: ", tile_data.walkable, " Texture: ", tile_data.texture_id)
-	return Vector2i(grid_x, grid_z)
+func load_grid_from_json() -> void:
+	# Load the JSON file
+	if FileAccess.file_exists(GRID_JSON_PATH):
+		var file = FileAccess.open(GRID_JSON_PATH, FileAccess.READ)
+		var json_string = file.get_as_text()
+		file.close()
+		
+		# Parse JSON and initialize grid
+		var json_data = JSON.parse_string(json_string)
+		if json_data and json_data.has("grid"):
+			grid_manager.from_json(JSON.stringify(json_data.grid))
+		else:
+			# Fallback to default grid if JSON is invalid
+			grid_manager.initialize_grid(GRID_WIDTH, GRID_HEIGHT)
+	else:
+		# Fallback to default grid if file doesn't exist
+		grid_manager.initialize_grid(GRID_WIDTH, GRID_HEIGHT)

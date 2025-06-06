@@ -15,8 +15,12 @@ var drag_sensitivity: float = 0.01
 var touch_points: Dictionary = {}
 var initial_distance: float = 0.0
 var initial_camera_z: float = 0.0
+
 # Add these as class variables at the top of your script
 var selected_grid_pos: Vector2i = Vector2i(-1, -1)  # Store last selected grid position
+
+# Add path to grid JSON file
+const GRID_JSON_PATH := "res://tutorial_grid.json"
 
 @onready var camera: Camera3D = $Camera3D
 @onready var grid_container: Node3D = $GridContainer

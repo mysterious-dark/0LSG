@@ -1,5 +1,12 @@
 extends Node3D
 
+# Add at the top with your existing constants
+var Operator = preload("res://1_MainPhases/Combat/Operator.tscn")  # Make sure to save Operator as a scene
+var current_operator = null  # Reference to the currently selected operator
+var placement_mode = false
+var valid_placement_color = Color(0.2, 0.8, 0.2, 0.5)  # Green for valid
+var invalid_placement_color = Color(0.8, 0.2, 0.2, 0.5)  # Red for invalid
+
 # Grid configuration
 const GRID_WIDTH: int = 10
 const GRID_HEIGHT: int = 5
@@ -7,6 +14,9 @@ const TILE_SIZE: float = 2.0
 
 # Add at the top with other signals
 signal tile_selected(tile_node: Node3D, grid_pos: Vector2i)
+
+# Add to your existing signals
+signal operator_placed(grid_pos: Vector2i)
 
 # Add path to grid JSON file
 const GRID_JSON_PATH := "res://tutorial_grid.json"
@@ -31,6 +41,7 @@ var selected_grid_pos: Vector2i = Vector2i(-1, -1)  # Store last selected grid p
 @onready var touch_control: Control = $TouchControls/CameraControl
 @onready var text_label3: Label = $HBoxContainer/Label3
 @onready var text_label2: Label = $HBoxContainer/Label2
+
 # Add after @onready variables
 var grid_manager: GridManager
 
@@ -41,6 +52,9 @@ func _ready() -> void:
 	create_grid()
 	# Connect touch control signals
 	touch_control.gui_input.connect(_on_touch_control_input)
+
+	# Connect our own tile_selected signal to the handler
+	self.tile_selected.connect(_on_tile_selected)  # Add this line
 
 func create_grid() -> void:
 	# Calculate grid boundaries based on actual data
@@ -210,3 +224,69 @@ func load_grid_from_json() -> void:
 	else:
 		# Fallback to default grid if file doesn't exist
 		grid_manager.initialize_grid(GRID_WIDTH, GRID_HEIGHT)
+
+# arknight logic
+# Add this function to create an operator
+func spawn_operator() -> void:
+	if current_operator != null:
+		return  # Don't spawn if we already have one being placed
+		
+	current_operator = Operator.instantiate()
+	add_child(current_operator)
+	current_operator.visible = false  # Hide until we start placement
+
+# Modify your existing tile_selected signal handling
+func _on_tile_selected(tile_node: Node3D, grid_pos: Vector2i) -> void:
+	if placement_mode:
+		var tile_data = grid_manager.get_tile_data(grid_pos.x, grid_pos.y)
+		if tile_data and tile_data.walkable:
+			# Calculate world position
+			var world_pos = Vector3(
+				grid_pos.x * TILE_SIZE,
+				0,
+				grid_pos.y * TILE_SIZE
+			) + grid_container.position
+			
+			# Place the operator
+			if current_operator == null:
+				current_operator = Operator.instantiate()
+				add_child(current_operator)
+			
+			current_operator.deploy(grid_pos, world_pos)
+			emit_signal("operator_placed", grid_pos)
+			
+			# Exit placement mode
+			placement_mode = false
+			clear_tile_highlights()
+		else:
+			# Optionally provide feedback that this tile is invalid
+			#DisplayServer.vibrate_handheld(20)  # Short vibration on invalid placement
+			print("fuck you")
+
+# Add function to highlight valid placement tiles
+func show_valid_placement_tiles() -> void:
+	for child in grid_container.get_children():
+		var grid_pos = world_to_grid(child.position)
+		var tile_data = grid_manager.get_tile_data(grid_pos.x, grid_pos.y)
+		if tile_data and tile_data.walkable:
+			var tile_mesh = child.get_node("MeshInstance3D")
+			if tile_mesh:
+				var material = tile_mesh.material_override.duplicate()
+				material.albedo_color = Color(0.2, 0.8, 0.2, 0.5)  # Green for valid placement
+				tile_mesh.material_override = material
+
+# Add function to clear highlights
+func clear_tile_highlights() -> void:
+	for child in grid_container.get_children():
+		var grid_pos = world_to_grid(child.position)
+		var tile_data = grid_manager.get_tile_data(grid_pos.x, grid_pos.y)
+		var tile_mesh = child.get_node("MeshInstance3D")
+		if tile_mesh:
+			var material = tile_mesh.material_override.duplicate()
+			material.albedo_color = Color(0.6, 0.6, 0.6) if (tile_data and tile_data.walkable) else Color(0.2, 0.2, 0.2)
+			tile_mesh.material_override = material
+
+# Function to enter placement mode
+func enter_placement_mode() -> void:
+	placement_mode = true
+	show_valid_placement_tiles()

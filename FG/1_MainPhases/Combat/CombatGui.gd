@@ -8,6 +8,9 @@ extends Control
 @onready var enemy_health_bar = $GUI/HUDContainer/TopBar/EnemyStats/EnemyHealthBar
 @onready var combat_scene = $Combat
 @onready var action_buttons = $GUI/HUDContainer/BottomBar/ActionButtons
+@onready var placement_button = $GUI/HUDContainer/BottomBar/ActionButtons/PlaceOperatorButton
+
+#var placement_button
 
 # Combat state
 var max_health: float = 100.0
@@ -36,6 +39,14 @@ func _ready() -> void:
 	# Set up buttons
 	setup_action_buttons()
 
+# Add this function to handle the button press
+func _on_place_operator_pressed() -> void:
+	combat_scene.enter_placement_mode()
+	
+	# Visual feedback for button press
+	_show_button_feedback(placement_button)
+	# DisplayServer.vibrate_handheld(20)  # Tactile feedback
+	
 func setup_action_buttons() -> void:
 	# Get references to buttons
 	var attack_button = $GUI/HUDContainer/BottomBar/ActionButtons/AttackButton
@@ -54,6 +65,19 @@ func setup_action_buttons() -> void:
 		button.custom_minimum_size = Vector2(120, 60)  # Larger touch target
 		button.focus_mode = Control.FOCUS_NONE  # Disable focus for touch
 
+	# Add some visual styling for mobile
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.2, 0.4, 0.8, 0.8)
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_left = 10
+	style.corner_radius_bottom_right = 10
+	
+	placement_button.add_theme_stylebox_override("normal", style)
+	
+	placement_button.pressed.connect(_on_place_operator_pressed)
+	
+	
 func _input(event: InputEvent) -> void:
 	# Handle touch events
 	if event is InputEventScreenTouch:
@@ -102,18 +126,18 @@ func _handle_screen_drag(event: InputEventScreenDrag) -> void:
 			touch_data.position = event.position
 			touch_events[event.index] = touch_data
 
-func _is_position_in_hud(position: Vector2) -> bool:
+func _is_position_in_hud(position2: Vector2) -> bool:
 	# Check if position is within any HUD container
-	if $GUI/HUDContainer/TopBar.get_global_rect().has_point(position):
+	if $GUI/HUDContainer/TopBar.get_global_rect().has_point(position2):
 		return true
-	if $GUI/HUDContainer/BottomBar.get_global_rect().has_point(position):
+	if $GUI/HUDContainer/BottomBar.get_global_rect().has_point(position2):
 		return true
 	return false
 
-func _handle_tap(position: Vector2) -> void:
+func _handle_tap(position2: Vector2) -> void:
 	# Check which UI element was tapped
 	for child in action_buttons.get_children():
-		if child is Button and child.get_global_rect().has_point(position):
+		if child is Button and child.get_global_rect().has_point(position2):
 			child.emit_signal("pressed")
 			_show_button_feedback(child)
 			return

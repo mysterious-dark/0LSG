@@ -1,6 +1,11 @@
 class_name GridData
 extends RefCounted
 
+var tilemap: TileMap
+
+func set_tilemap(tm: TileMap) -> void:
+	tilemap = tm
+	
 var walkable: bool
 var texture_id: int
 var y_pos: int  # Store the height position

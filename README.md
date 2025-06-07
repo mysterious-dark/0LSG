@@ -42,7 +42,7 @@ Requirements:
 
 ## Technical Requirements
 - Platform: Mobile (Android/iOS)
-- Engine: Godot
+- Engine: Godot  4.4.1
 - Input: Touch-based, one-handed operation
 - Screen Orientation: TBD (Recommend portrait for one-handed play)
 

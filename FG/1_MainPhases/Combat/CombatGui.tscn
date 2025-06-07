@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://randomuid"]
+[gd_scene load_steps=3 format=3 uid="uid://randomuid"]
 
 [ext_resource type="PackedScene" uid="uid://gh54pd0irgfg" path="res://1_MainPhases/Combat/TutorialCombat.tscn" id="1_combat"]
-[ext_resource type="Script" uid="uid://c2ml34j6l0ltc" path="res://1_MainPhases/Combat/CombatGui.gd" id="1_oo3lf"]
 [ext_resource type="Texture2D" uid="uid://5cob7c5pu0sy" path="res://textures/Jun 1, 2025, 03_12_31 PM.png" id="2_yweut"]
 
 [node name="CombatGUI" type="Control"]
@@ -11,7 +10,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_oo3lf")
 
 [node name="Combat" parent="." instance=ExtResource("1_combat")]
 
@@ -25,6 +23,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="TextureButton" type="TextureButton" parent="GUI"]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -36,3 +35,88 @@ stretch_mode = 6
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="HUDContainer" type="MarginContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TopBar" type="HBoxContainer" parent="GUI/HUDContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PlayerStats" type="VBoxContainer" parent="GUI/HUDContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HealthBar" type="ProgressBar" parent="GUI/HUDContainer/TopBar/PlayerStats"]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+value = 100.0
+
+[node name="StaminaBar" type="ProgressBar" parent="GUI/HUDContainer/TopBar/PlayerStats"]
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 2
+value = 100.0
+
+[node name="CombatInfo" type="VBoxContainer" parent="GUI/HUDContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TurnLabel" type="Label" parent="GUI/HUDContainer/TopBar/CombatInfo"]
+layout_mode = 2
+text = "Current Turn: Player"
+horizontal_alignment = 1
+
+[node name="ActionPoints" type="Label" parent="GUI/HUDContainer/TopBar/CombatInfo"]
+layout_mode = 2
+text = "AP: 3/3"
+horizontal_alignment = 1
+
+[node name="EnemyStats" type="VBoxContainer" parent="GUI/HUDContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="GUI/HUDContainer/TopBar/EnemyStats"]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+value = 100.0
+
+[node name="BottomBar" type="HBoxContainer" parent="GUI/HUDContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="ActionButtons" type="HBoxContainer" parent="GUI/HUDContainer/BottomBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="AttackButton" type="Button" parent="GUI/HUDContainer/BottomBar/ActionButtons"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Attack"
+
+[node name="DefendButton" type="Button" parent="GUI/HUDContainer/BottomBar/ActionButtons"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Defend"
+
+[node name="SkillsButton" type="Button" parent="GUI/HUDContainer/BottomBar/ActionButtons"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Skills"
+
+[node name="ItemsButton" type="Button" parent="GUI/HUDContainer/BottomBar/ActionButtons"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "Items"

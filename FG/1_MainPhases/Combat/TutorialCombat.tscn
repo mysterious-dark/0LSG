@@ -36,3 +36,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Caci cac cong awdadwdadwdadw casc gi do????"
+uppercase = true
+
+[node name="Label2" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "zoom level"
+uppercase = true
+
+[node name="Label3" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "zoom level"
+uppercase = true

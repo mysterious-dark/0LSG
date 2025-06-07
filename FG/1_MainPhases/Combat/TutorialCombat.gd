@@ -5,6 +5,9 @@ const GRID_WIDTH: int = 10
 const GRID_HEIGHT: int = 5
 const TILE_SIZE: float = 2.0
 
+# Add at the top with other signals
+signal tile_selected(tile_node: Node3D, grid_pos: Vector2i)
+
 # Add path to grid JSON file
 const GRID_JSON_PATH := "res://tutorial_grid.json"
 
@@ -120,6 +123,11 @@ func handle_touch(event: InputEventScreenTouch) -> void:
 				selected_grid_pos = world_to_grid(hit_pos)
 				print("Grid coordinates: ", selected_grid_pos, " World position: ", hit_pos)
 				# Highlight the selected tile or perform actions here
+				# Get the tile node that was hit
+				var tile_node = result.collider.get_parent()  # Since the StaticBody3D is child of the tile container
+				
+				# Emit the signal with the tile node and grid position
+				emit_signal("tile_selected", tile_node, selected_grid_pos)
 		
 		# If this is the second touch point
 		elif touch_points.size() == 2:

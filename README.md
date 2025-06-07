@@ -60,3 +60,7 @@ Additional guidance:
 - Keep your analysis succinct and conversational.
 - Do not repeat or list the context details in your final response.
 - Provide a concise synthesis of the information, avoiding unnecessary repetition.
+
+
+@onready var textureButton = $GUI/TextureButton
+@onready var gui : Control = $GUI  
